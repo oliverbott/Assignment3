@@ -1,0 +1,36 @@
+# Download GitHub users with more than 100 followers for different locations
+
+```{r}
+library(httr)
+library(plyr)
+library(rjson)
+
+# Create locations vector
+locations <- c('Berlin', 'Hamburg', 'Munich', 'Stuttgart', 'Karlsruhe', 'Aachen', 'Madrid', 'Barcelona', 'Paris', 'Rome', 'Milan', 'Bologna', 'Stockholm', 'Gothenburg', 'Malmö', 'Minneapolis', 'Boston', 'New York', 'San Francisco', 'Austin')
+
+# Create empty vector for user counts
+user_counts <- vector()
+
+# Loop through the locations and download the user counts
+## Note: the %23E turns into a greater than sign >
+for (i in locations){
+    # Download raw data
+    URL_temp <- paste0('https://api.github.com/search/users?q=location:', i,
+                      '+followers:%3E100')
+    users <- GET(URL_temp) %>% 
+                content(as = 'text') %>% 
+                fromJSON()               
+    
+    # Extract counts of users that meet criteria for the location
+    user_counts_temp <- users$total_count
+    
+    # Add to user_counts vector
+    user_counts <- c(user_counts, user_counts_temp)
+    
+    # Sleep R for 5 seconds so you don't overload the API
+    Sys.sleep(5); message('-')
+}
+
+# Combine locations and user counts data
+location_counts <- data.frame(locations, user_counts)
+```
