@@ -1,0 +1,156 @@
+---
+title: "Session 8 Statistics"
+author: "Oliver Bott"
+date: "Thursday, November 06, 2014"
+output: html_document
+---
+```{r}
+setwd('C:/Users/a6p/Desktop/Uni 2014/E1161 - Collaborative Research/GitHub Clone/Assignment3/')
+```
+
+OECD Pull Data
+
+```{r include=FALSE}
+# Install packages to pull OECD data
+
+# install.packages("devtools")
+require("devtools")
+library("rsdmx")
+```
+
+
+```{r include=FALSE}
+# Pull OECD city patent data
+dataURL <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.PCT_INTENSITY?startTime=2008&endTime=2012"
+
+sdmx <- readSDMX(dataURL)
+city_pat <- as.data.frame(sdmx)
+
+# Clean table by deleting and renaming rows
+city_pat$VAR <- NULL # Delete columns
+city_pat$attrs.df <- NULL
+
+colnames(city_pat) <- c("METRO_ID" , "Year" , "Patent_Intensity") # Rename columns
+
+# Pull OECD GDP per capita data
+
+dataURL2 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.GDP_PC?startTime=2008&endTime=2008"
+
+sdmx <- readSDMX(dataURL2)
+city_gdp <- as.data.frame(sdmx)
+
+# Clean table by deleting and renaming rows
+city_gdp$VAR <- NULL # Delete columns
+city_gdp$attrs.df <- NULL
+
+colnames(city_gdp) <- c("METRO_ID" , "Year" , "GDP") # Rename columns
+
+# Pull OECD population data
+
+dataURL3 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.POP?startTime=2008&endTime=2008"
+
+sdmx <- readSDMX(dataURL3)
+city_pop <- as.data.frame(sdmx)
+
+# Clean table by deleting and renaming rows
+city_pop$VAR <- NULL # Delete columns
+city_pop$attrs.df <- NULL
+
+colnames(city_pop) <- c("METRO_ID" , "Year" , "Population") # Rename columns
+
+
+# Pull OECD pollution (Estimated population exposure to air pollution PM2.5 expressed in mirco gram per cubic metre, annual average)
+
+dataURL4 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.AIR_POLLUTION?startTime=2008&endTime=2008"
+
+sdmx <- readSDMX(dataURL3)
+city_pol <- as.data.frame(sdmx)
+
+# Clean table by deleting and renaming rows
+city_pol$VAR <- NULL # Delete columns
+city_pol$attrs.df <- NULL
+
+colnames(city_pol) <- c("METRO_ID" , "Year" , "Pollution") # Rename columns
+
+```
+
+Merge OECD data sets
+
+```{r echo=TRUE}
+# Merge all 3 OECD citydata sets
+
+oecd_pat_gdp <- merge(city_pat , city_gdp , by=c("METRO_ID" , "Year"))
+oecd_pat_gdp_pop <- merge(oecd_pat_gdp , city_pop , by=c("METRO_ID" , "Year"))
+oecd <- merge(oecd_pat_gdp_pop , city_pol , by=c("METRO_ID" , "Year"))
+```
+
+Clean OECD data
+
+```{r echo=FALSE}
+
+# Clean city table, insert city and country names
+
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "AT001" , "Vienna")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "BE001" , "Brussels")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE001" , "Berlin")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE002" , "Hamburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE035" , "Karlsruhe")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DK001" , "Copenhagen")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES001" , "Madrid")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES002" , "Barcelona")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FI001" , "Helsinki")
+
+```
+
+Pull API data
+
+```{r}
+library(httr)
+library(dplyr)
+library(rjson)
+ 
+# Create locations vector
+locations <- c('Vienna', 'Brussels', 'Berlin', 'Hamburg', 'Karlsruhe', 'Copenhagen', 'Madrid', 'Barcelona', 'Helsinki')
+ 
+# Create empty vector for user counts
+user_counts <- vector()
+ 
+# Loop through the locations and download the user counts
+## Note: the %23E turns into a greater than sign >
+for (i in locations){
+    # Download raw data
+    URL_temp <- paste0('https://api.github.com/search/users?q=location:', i,
+                      '+followers:%3E100')
+    users <- GET(URL_temp) %>% 
+                content(as = 'text') %>% 
+                fromJSON()               
+    
+    # Extract counts of users that meet criteria for the location
+    user_counts_temp <- users$total_count
+    
+    # Add to user_counts vector
+    user_counts <- c(user_counts, user_counts_temp)
+    
+    # Sleep R for 5 seconds so you don't overload the API
+    Sys.sleep(2); message('-')
+}
+ 
+# Combine locations and user counts data
+location_counts <- data.frame(locations, user_counts)
+```
+
+Clean network data
+
+```{r}
+
+# Clean API data
+colnames(location_counts) <- c("METRO_ID" , "Counts") # Rename columns
+```
+
+Merge both OECD and API data sets
+
+```{r echo=TRUE}
+# Merge all OECD and API data set
+
+dataset <- merge(oecd , location_counts , by=c("METRO_ID"))                 
+```
