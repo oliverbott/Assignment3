@@ -35,8 +35,10 @@ for (i in locations){
 location_counts <- data.frame(locations, user_counts)
 ```
 
+```{r}
 # Alternative city list 1
 'Vienna', 'Graz', 'Linz', 'Brussels', 'Antwerp', 'Ghent', 'Liege', 'Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt', 'Essen', 'Stuttgart', 'Leipzig', 'Dresden', 'Dortmund', 'Dusseldorf', 'Bremen', 'Hanover', 'Nuremberg', 'Bochum', 'Freiburg', 'Augsburg', 'Bonn', 'Karlsruhe', 'Saarbrucken', 'Duisburg', 'Mannheim', 'Munster', 'Aachen', 'Copenhagen', 'Tallinn', 'Madrid', 'Barcelona', 'Valencia', 'Seville', 'Zaragoza', 'Malaga', 'Palmas', 'Bilbao', 'Helsinki', 'Paris', 'Lyon', 'Toulouse', 'Strasbourg', 'Bordeaux', 'Nantes', 'Lille', 'Montpellier', 'Saint-Etienne', 'Rennes', 'Grenoble', 'Toulon', 'Marseille', 'Nice', 'Rouen', 'Rome', 'Milan', 'Naples', 'Turin', 'Palermo', 'Genova', 'Florence', 'Bari', 'Bologna', 'Catania', 'Venice', 'Mito', 'Tokyo', 'Kofu', 'Nagoya', 'Numazu', 'Osaka', 'Okayama', 'Kurashiki', 'Fukuyama', 'Hiroshima', 'Takamatsu', 'Monterrey', 'Irapuato', 'Mexico', 'Hague', 'Amsterdam', 'Rotterdam', 'Utrecht', 'Eindhoven', 'Oslo', 'Lisbon', 'Porto', 'Stockholm', 'Gothenburg', 'Malmo', 'Seattle', 'Portland', 'Minneapolis', 'Milwaukee', 'Madison', 'Buffalo', 'Albany', 'Detroit', 'Boston', 'Chicago', 'Providence', 'Toledo', 'Cleveland', 'Omaha', 'Akron', 'Brooklyn', 'Pittsburgh', 'Harrisburg', 'Philadelphia', 'Columbus', 'Denver', 'Indianapolis', 'Dayton', 'Baltimore', 'Cincinnati', 'Washington', 'Louisville', 'Fransisco', 'Wichita', 'Richmond', 'Fresno', 'Vegas', 'Nashville', 'Tulsa', 'Raleigh', 'Oklahoma', 'Charlotte', 'Albuquerque', 'Memphis', 'Angeles', 'Columbia', 'Atlanta', 'Phoenix', 'Birmingham', 'Dallas', 'Diego', 'Charleston', 'Tucson', 'Austin', 'Jacksonville', 'Orleans', 'Houston', 'Orlando', 'Tampa', 'Miami', 'Mcallen'
+```
 
 ```{r}
 # Bind different data.frames together
@@ -44,7 +46,7 @@ location_counts <- data.frame(locations, user_counts)
 total <- rbind(location_counts, location_counts1, location_counts2, location_counts3, location_counts4)
 ```
 
-
+```{r}
 # Works fine as chunk
 'Vienna', 'Brussels', 'Berlin', 'Hamburg', 'Karlsruhe', 'Copenhagen', 'Madrid', 'Barcelona', 'Helsinki', 'Paris', 'Hague', 'Amsterdam', 'Rotterdam', 'Oslo', 'Lisbon', 'Porto', 'Stockholm', 'Seattle', 'Detroit', 'Chicago'
 
@@ -54,3 +56,4 @@ total <- rbind(location_counts, location_counts1, location_counts2, location_cou
 'Kofu', 'Osaka', 'Okayama', 'Monterrey', 'Utrecht', 'Eindhoven'
 'Portland', 'Minneapolis', 'Pittsburgh', 'Baltimore', 'Washington'
 'Munich', 'Cologne', 'Frankfurt', 'Valencia', 'Seville'
+```
