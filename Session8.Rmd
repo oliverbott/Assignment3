@@ -155,17 +155,22 @@ Merge both OECD and API data sets
 dataset <- merge(oecd , location_counts , by=c("METRO_ID"))                 
 ```
 
+
 Turn network counts to counts relative to population
 
 ```{r}
-# Change total counts into counts per 10,000 population
+# Change total counts into counts per population
 dataset$Counts <- dataset$Counts/dataset$Population
-dataset$Counts <- dataset$Counts*10000
+dataset$Counts <- dataset$Counts/500000
 ```
 
 Statistics
 
 ```{r}
+
+plot(dataset$Patent_Intensity,dataset$Counts)
+plot(dataset[,3,7])
+
 
 car::scatterplotMatrix(dataset[,3:7])
 
@@ -189,5 +194,3 @@ plot(M1, which = 1)
 
 
 ```
-
-
