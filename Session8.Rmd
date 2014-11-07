@@ -292,7 +292,7 @@ Statistics
 
 ```{r}
 
-plot(dataset$Patent_Intensity,dataset$Followers)
+plot(dataset$Patents,dataset$Followers)
 plot(dataset[,3,7])
 
 
