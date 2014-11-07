@@ -21,7 +21,7 @@ library("rsdmx")
 
 ```{r include=FALSE}
 # Pull OECD city patent data
-dataURL <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.PCT_INTENSITY?startTime=2008&endTime=2012"
+dataURL <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+AT002+AT003+BE001+BE002+BE003+BE005+DE001+DE002+DE003+DE004+DE005+DE006+DE007+DE008+DE009+DE010+DE011+DE012+DE013+DE015+DE027+DE033+DE034+DE035+DE501+DE502+DE507+DK001+EE001+ES001+ES002+ES003+ES004+ES005+ES006+ES008+ES019+FI001+FR001+FR003+FR004+FR006+FR007+FR008+FR009+FR010+FR013+FR026+FR032+FR203+FR205+FR215+IT001+IT002+IT003+IT004+IT005+IT006+IT007+IT008+IT009+IT010+IT011+JP026+JP030+JP031+JP034+JP036+JP038+JP050+JP051+JP052+JP053+JP054+MEX19+MEX38+NL001+NL002+NL003+NL004+NL005+NO001+PT001+PT002+SE001+SE002+SE003+US003+US012+US014+US033+US035+US038+US044+US045+US048+US055+US060+US065+US069+US077+US081+US097+US103+US106+US107+US114+US115+US117+US122+US124+US125+US141+US147+US149+US155+US160+US161+US170+US178+US180+US181+US195+US196+US202+US209+US213+US223+US234+US237+US242+US245+US250+US252+US259.PCT_INTENSITY?startTime=2008&endTime=2012"
 
 sdmx <- readSDMX(dataURL)
 city_pat <- as.data.frame(sdmx)
@@ -30,11 +30,11 @@ city_pat <- as.data.frame(sdmx)
 city_pat$VAR <- NULL # Delete columns
 city_pat$attrs.df <- NULL
 
-colnames(city_pat) <- c("METRO_ID" , "Year" , "Patent_Intensity") # Rename columns
+colnames(city_pat) <- c("METRO_ID" , "Year" , "Patents") # Rename columns
 
 # Pull OECD GDP per capita data
 
-dataURL2 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.GDP_PC?startTime=2008&endTime=2008"
+dataURL2 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+AT002+AT003+BE001+BE002+BE003+BE005+DE001+DE002+DE003+DE004+DE005+DE006+DE007+DE008+DE009+DE010+DE011+DE012+DE013+DE015+DE027+DE033+DE034+DE035+DE501+DE502+DE507+DK001+EE001+ES001+ES002+ES003+ES004+ES005+ES006+ES008+ES019+FI001+FR001+FR003+FR004+FR006+FR007+FR008+FR009+FR010+FR013+FR026+FR032+FR203+FR205+FR215+IT001+IT002+IT003+IT004+IT005+IT006+IT007+IT008+IT009+IT010+IT011+JP026+JP030+JP031+JP034+JP036+JP038+JP050+JP051+JP052+JP053+JP054+MEX19+MEX38+NL001+NL002+NL003+NL004+NL005+NO001+PT001+PT002+SE001+SE002+SE003+US003+US012+US014+US033+US035+US038+US044+US045+US048+US055+US060+US065+US069+US077+US081+US097+US103+US106+US107+US114+US115+US117+US122+US124+US125+US141+US147+US149+US155+US160+US161+US170+US178+US180+US181+US195+US196+US202+US209+US213+US223+US234+US237+US242+US245+US250+US252+US259.GDP_PC?startTime=2008&endTime=2008"
 
 sdmx <- readSDMX(dataURL2)
 city_gdp <- as.data.frame(sdmx)
@@ -47,7 +47,7 @@ colnames(city_gdp) <- c("METRO_ID" , "Year" , "GDP") # Rename columns
 
 # Pull OECD population data
 
-dataURL3 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.POP?startTime=2008&endTime=2008"
+dataURL3 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+AT002+AT003+BE001+BE002+BE003+BE005+DE001+DE002+DE003+DE004+DE005+DE006+DE007+DE008+DE009+DE010+DE011+DE012+DE013+DE015+DE027+DE033+DE034+DE035+DE501+DE502+DE507+DK001+EE001+ES001+ES002+ES003+ES004+ES005+ES006+ES008+ES019+FI001+FR001+FR003+FR004+FR006+FR007+FR008+FR009+FR010+FR013+FR026+FR032+FR203+FR205+FR215+IT001+IT002+IT003+IT004+IT005+IT006+IT007+IT008+IT009+IT010+IT011+JP026+JP030+JP031+JP034+JP036+JP038+JP050+JP051+JP052+JP053+JP054+MEX19+MEX38+NL001+NL002+NL003+NL004+NL005+NO001+PT001+PT002+SE001+SE002+SE003+US003+US012+US014+US033+US035+US038+US044+US045+US048+US055+US060+US065+US069+US077+US081+US097+US103+US106+US107+US114+US115+US117+US122+US124+US125+US141+US147+US149+US155+US160+US161+US170+US178+US180+US181+US195+US196+US202+US209+US213+US223+US234+US237+US242+US245+US250+US252+US259.POP?startTime=2008&endTime=2008"
 
 sdmx <- readSDMX(dataURL3)
 city_pop <- as.data.frame(sdmx)
@@ -61,12 +61,13 @@ colnames(city_pop) <- c("METRO_ID" , "Year" , "Population") # Rename columns
 
 # Pull OECD pollution (Estimated population exposure to air pollution PM2.5 expressed in mirco gram per cubic metre, annual average)
 
-dataURL4 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+BE001+DE001+DE002+DE035+DK001+ES001+ES002+FI001.AIR_POLLUTION?startTime=2008&endTime=2008"
+dataURL4 <- "http://stats.oecd.org/restsdmx/sdmx.ashx/GetData/CITIES/AT001+AT002+AT003+BE001+BE002+BE003+BE005+DE001+DE002+DE003+DE004+DE005+DE006+DE007+DE008+DE009+DE010+DE011+DE012+DE013+DE015+DE027+DE033+DE034+DE035+DE501+DE502+DE507+DK001+EE001+ES001+ES002+ES003+ES004+ES005+ES006+ES008+ES019+FI001+FR001+FR003+FR004+FR006+FR007+FR008+FR009+FR010+FR013+FR026+FR032+FR203+FR205+FR215+IT001+IT002+IT003+IT004+IT005+IT006+IT007+IT008+IT009+IT010+IT011+JP026+JP030+JP031+JP034+JP036+JP038+JP050+JP051+JP052+JP053+JP054+MEX19+MEX38+NL001+NL002+NL003+NL004+NL005+NO001+PT001+PT002+SE001+SE002+SE003+US003+US012+US014+US033+US035+US038+US044+US045+US048+US055+US060+US065+US069+US077+US081+US097+US103+US106+US107+US114+US115+US117+US122+US124+US125+US141+US147+US149+US155+US160+US161+US170+US178+US180+US181+US195+US196+US202+US209+US213+US223+US234+US237+US242+US245+US250+US252+US259.AIR_POLLUTION?startTime=2008&endTime=2008"
 
 sdmx <- readSDMX(dataURL3)
 city_pol <- as.data.frame(sdmx)
 
 # Clean table by deleting and renaming rows
+
 city_pol$VAR <- NULL # Delete columns
 city_pol$attrs.df <- NULL
 
@@ -91,18 +92,143 @@ Clean OECD data
 # Clean city table, insert city and country names
 
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "AT001" , "Vienna")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "AT002" , "Graz")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "AT003" , "Linz")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "BE001" , "Brussels")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "BE002" , "Antwerp")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "BE003" , "Ghent")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "BE005" , "Liege")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE001" , "Berlin")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE002" , "Hamburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE003" , "Munich")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE004" , "Cologne")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE005" , "Frankfurt")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE006" , "Essen")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE007" , "Stuttgart")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE008" , "Leipzig")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE009" , "Dresden")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE010" , "Dortmund")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE011" , "Dusseldorf")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE012" , "Bremen")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE013" , "Hanover")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE015" , "Bochum")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE027" , "Freiburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE033" , "Augsburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE034" , "Bonn")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE035" , "Karlsruhe")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE501" , "Duisburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE502" , "Mannheim")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DE507" , "Aachen")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "DK001" , "Copenhagen")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "EE001" , "Tallinn")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES001" , "Madrid")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES002" , "Barcelona")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES003" , "Valencia")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES004" , "Seville")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES005" , "Zaragoza")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES006" , "Malaga")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES008" , "Palmas")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "ES019" , "Bilbao")
 oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FI001" , "Helsinki")
-
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR001" , "Paris")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR003" , "Lyon")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR004" , "Toulouse")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR006" , "Strasbourg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR007" , "Bordeaux")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR008" , "Nantes")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR009" , "Lille")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR010" , "Montpellier")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR013" , "Rennes")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR026" , "Grenoble")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR032" , "Toulon")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR203" , "Marseille")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR205" , "Nice")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "FR215" , "Rouen")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT001" , "Rome")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT002" , "Milan")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT003" , "Naples")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT004" , "Turin")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT005" , "Palermo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT006" , "Genova")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT007" , "Florence")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT008" , "Bari")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT009" , "Bologna")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT010" , "Catania")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "IT011" , "Venice")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP026" , "Mito")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP030" , "Tokyo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP031" , "Kofu")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP034" , "Nagoya")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP036" , "Numazu")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP038" , "Osaka")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP050" , "Okayama")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP051" , "Kurashiki")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP052" , "Fukuyama")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP053" , "Hiroshima")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "JP054" , "Takamatsu")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "MEX19" , "Monterrey")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "MEX38" , "Irapuato")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NL001" , "Hague")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NL002" , "Amsterdam")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NL003" , "Rotterdam")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NL004" , "Utrecht")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NL005" , "Eindhoven")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "NO001" , "Oslo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "PT001" , "Lisbon")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "PT002" , "Porto")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "SE001" , "Stockholm")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "SE002" , "Gothenburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "SE003" , "Malmo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US003" , "Seattle")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US012" , "Portland")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US014" , "Minneapolis")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US033" , "Milwaukee")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US035" , "Madison")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US038" , "Buffalo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US044" , "Albany")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US045" , "Detroit")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US048" , "Boston")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US055" , "Chicago")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US060" , "Providence")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US065" , "Toledo")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US069" , "Cleveland")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US077" , "Omaha")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US081" , "Akron")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US097" , "Pittsburgh")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US103" , "Harrisburg")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US106" , "Philadelphia")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US107" , "Columbus")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US114" , "Denver")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US115" , "Indianapolis")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US117" , "Dayton")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US122" , "Baltimore")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US124" , "Cincinnati")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US125" , "Washington")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US141" , "Louisville")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US147" , "Wichita")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US149" , "Richmond")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US155" , "Fresno")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US160" , "Nashville")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US161" , "Tulsa")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US170" , "Raleigh")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US178" , "Charlotte")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US180" , "Albuquerque")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US181" , "Memphis")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US195" , "Columbia")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US196" , "Atlanta")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US202" , "Phoenix")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US209" , "Dallas")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US213" , "Charleston")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US223" , "Tucson")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US234" , "Austin")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US237" , "Jacksonville")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US242" , "Houston")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US250" , "Orlando")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US252" , "Tampa")
+oecd$METRO_ID <- replace(oecd$METRO_ID , oecd$METRO_ID == "US259" , "Miami")
 ```
 
-Pull API data
+Pull API data from Github of users with more than 25 followers
 
 ```{r}
 library(httr)
@@ -110,7 +236,7 @@ library(dplyr)
 library(rjson)
  
 # Create locations vector
-locations <- c('Vienna', 'Brussels', 'Berlin', 'Hamburg', 'Karlsruhe', 'Copenhagen', 'Madrid', 'Barcelona', 'Helsinki')
+locations <- c('Vienna', 'Graz', 'Linz', 'Brussels', 'Antwerp', 'Ghent', 'Liege', 'Berlin', 'Hamburg', 'Munich', 'Cologne', 'Frankfurt', 'Essen', 'Stuttgart', 'Leipzig', 'Dresden', 'Dortmund', 'Dusseldorf', 'Bremen', 'Hanover', 'Bochum', 'Freiburg', 'Augsburg', 'Bonn', 'Karlsruhe', 'Duisburg', 'Mannheim', 'Aachen', 'Copenhagen', 'Tallinn', 'Madrid', 'Barcelona', 'Valencia', 'Seville', 'Zaragoza', 'Malaga', 'Palmas', 'Bilbao', 'Helsinki', 'Paris', 'Lyon', 'Toulouse', 'Strasbourg', 'Bordeaux', 'Nantes', 'Lille', 'Montpellier', 'Rennes', 'Grenoble', 'Toulon', 'Marseille', 'Nice', 'Rouen', 'Rome', 'Milan', 'Naples', 'Turin', 'Palermo', 'Genova', 'Florence', 'Bari', 'Bologna', 'Catania', 'Venice', 'Mito', 'Tokyo', 'Kofu', 'Nagoya', 'Numazu', 'Osaka', 'Okayama', 'Kurashiki', 'Fukuyama', 'Hiroshima', 'Takamatsu', 'Monterrey', 'Irapuato', 'Hague', 'Amsterdam', 'Rotterdam', 'Utrecht', 'Eindhoven', 'Oslo', 'Lisbon', 'Porto', 'Stockholm', 'Gothenburg', 'Malmo', 'Seattle', 'Portland', 'Minneapolis', 'Milwaukee', 'Madison', 'Buffalo', 'Albany', 'Detroit', 'Boston', 'Chicago', 'Providence', 'Toledo', 'Cleveland', 'Omaha', 'Akron', 'Pittsburgh', 'Harrisburg', 'Philadelphia', 'Columbus', 'Denver', 'Indianapolis', 'Dayton', 'Baltimore', 'Cincinnati', 'Washington', 'Louisville',  'Wichita', 'Richmond', 'Fresno', 'Nashville', 'Tulsa', 'Raleigh', 'Charlotte', 'Albuquerque', 'Memphis', 'Columbia', 'Atlanta', 'Phoenix',  'Dallas', 'Charleston', 'Tucson', 'Austin', 'Jacksonville', 'Houston', 'Orlando', 'Tampa', 'Miami')
  
 # Create empty vector for user counts
 user_counts <- vector()
@@ -120,7 +246,7 @@ user_counts <- vector()
 for (i in locations){
     # Download raw data
     URL_temp <- paste0('https://api.github.com/search/users?q=location:', i,
-                      '+followers:%3E100')
+                      '+followers:%3E25')
     users <- GET(URL_temp) %>% 
                 content(as = 'text') %>% 
                 fromJSON()               
@@ -131,8 +257,8 @@ for (i in locations){
     # Add to user_counts vector
     user_counts <- c(user_counts, user_counts_temp)
     
-    # Sleep R for 5 seconds so you don't overload the API
-    Sys.sleep(2); message('-')
+    # Sleep R for 7 seconds so you don't overload the API
+    Sys.sleep(7); message('-')
 }
  
 # Combine locations and user counts data
@@ -142,9 +268,8 @@ location_counts <- data.frame(locations, user_counts)
 Clean network data
 
 ```{r}
-
 # Clean API data
-colnames(location_counts) <- c("METRO_ID" , "Counts") # Rename columns
+colnames(location_counts) <- c("METRO_ID" , "Followers") # Rename columns
 ```
 
 Merge both OECD and API data sets
@@ -155,26 +280,25 @@ Merge both OECD and API data sets
 dataset <- merge(oecd , location_counts , by=c("METRO_ID"))                 
 ```
 
-
-Turn network counts to counts relative to population
+Turn network counts to counts relative to 500.000 population
 
 ```{r}
 # Change total counts into counts per population
-dataset$Counts <- dataset$Counts/dataset$Population
-dataset$Counts <- dataset$Counts/500000
+dataset$Followers <- dataset$Followers/dataset$Population
+dataset$Followers <- dataset$Followers*500000
 ```
 
 Statistics
 
 ```{r}
 
-plot(dataset$Patent_Intensity,dataset$Counts)
+plot(dataset$Patent_Intensity,dataset$Followers)
 plot(dataset[,3,7])
 
 
 car::scatterplotMatrix(dataset[,3:7])
 
-M1 <- lm(Patent_Intensity ~ Counts + GDP + Population, data = dataset)
+M1 <- lm(Patents ~ Followers + GDP + Population, data = dataset)
 summary(M1)
 
 confint(M1)
@@ -189,8 +313,9 @@ plot(M1, which = 1)
 #'>= 15,000'))
 #summary(Prestige$income_cat)
 
-#M3 <- lm(Patent_Intensity ~ Counts, data = dataset)
+#M3 <- lm(Patents ~ Followers, data = dataset)
 #confint(M3)
 
-
 ```
+
+
