@@ -46,6 +46,14 @@ Pollution data was obtained as a broad proxy for industrialization
 
 Greenspace, employment as share of national employment, pop, 
 
+```{r}
+# Load Dataset.csv from repository
+dataset <- read.csv('https://raw.githubusercontent.com/oliverbott/Assignment3/master/Dataset.csv')
+
+# Clean dataset
+dataset$X <- NULL
+
+```
 
 
 
