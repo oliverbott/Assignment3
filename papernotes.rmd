@@ -1,0 +1,39 @@
+
+Justification for dataset (cities, variables chosen (pollution, etc), 
+
+cities chosen. cities excluded...
+variables included..
+
+why the follower numbers chosen
+
+
+"due to the exploratory nature of the study, it is important to be aware of the limitation before examining results, to put them in their proper context, and to keep in mind possible more approximate ways in the future."
+
+
+Limitations:
+Time of date
+OECD data is outdated - not up to date - 2008
+polution - 2005
+
+How approximate (or not) are our proxies
+ - innovation by followers
+ 
+API 
+Focuses on software or IT if at all, patent data takes in everything
+
+Language
+program language adoption and github use
+city language
+3 - geographic adoption of programming languages.
+
+- we add a dummy to check for this -
+
+
+
+A bit of descriptive statistics
+
+
+A few regression
+
+
+Some explanation of the regressions
