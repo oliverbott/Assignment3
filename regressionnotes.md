@@ -39,3 +39,30 @@ summary(M6)
 plot(M6, which = 1)
 plot(M6, which = 2)
 ```
+
+```{r, echo=TRUE, results='asis'}
+
+# Create different models for stargazer regression output
+
+P1 <- lm(Patents ~ Followers, data = dataset2)
+P2 <- lm(Patents ~ Followers + GDP, data = dataset2)
+P3 <- lm(Patents ~ Followers + GDP + Population, data = dataset2)
+
+F1 <- lm(Followers ~ Patents, data = dataset2)
+F2 <- lm(Followers ~ Patents + GDP, data = dataset2)
+F3 <- lm(Followers ~ Patents + GDP + Population, data = dataset2)
+
+labels <- c('(Intercept)', 'Followers', 'GDP per capita', 'Population')
+
+# For PDF output use this code
+
+stargazer::stargazer(P1, P2, P3, covariate.labels = labels,
+  title = 'Regression Estimates of Patent Activity',
+  digits = 2, type ='latex', header=FALSE)
+
+# For HTML output use this code  
+
+#stargazer::stargazer(M1, M2, M3, covariate.labels = labels,
+ # title = 'Regression Estimates of Patent Activity',
+ # digits = 2, type ='html')
+```
