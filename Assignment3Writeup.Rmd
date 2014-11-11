@@ -26,9 +26,6 @@ PackagesUsed <- c("ggplot2", "repmis", "rsdmx", "httr", "dplyr", "rjson")
 repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 ```
 
-
-
-
 ## Introduction
 
 This research project examines the potential preferability of using collaborative online network data on the city-level as an innovation indicator. By doing so, this work will critically assess current innovation indicators in the hope of offering new alternatives for measuring and understanding innovation. Since various scholars, called for the continuous improvement of innovation measurement [see for example @freeman2009], this work seeks to go beyond the widespread use of patent data to contribute to the refinement of innovation indicators, and the field as a whole.
@@ -55,6 +52,8 @@ Greenspace, employment as share of national employment, pop,
 Due to the exploratory nature of the study, it is important to be aware of the limitation before examining results, to put them in their proper context, and to keep in mind possible more approximate ways in the future.
 
 ## Limitations
+
+For this analysis, there have been several issues with identifying parts of cities (Regions of cities).  Additionally, pulling API data for cities with two word names 'New York', '
 
 The constraints of the data used in this study are numerous, but fall largely within three main categories:
 
