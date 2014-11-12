@@ -38,7 +38,12 @@ For the full examination of the previous literature on the subject and reasoning
 
 To examine open network data against patent data, this study will relies on two data sets and uses the statistical tool R [@CiteR] for the data analysis. 
 
-The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT].  The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow us to compile data on the user counts and locations associated with different repositories.
+The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow for compiling data on the user counts and locations associated with different repositories.  For closed innovation we use city-level patent data, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent Cooperation Treaty (PCT) patent data are used to track internationally patented inventions. Patent data and and GitHub follower data was taken for _ cities, which were matched for direct comparison.  
+
+
+ As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. The OECD data will be in a format that allows us to locate patent activity to individual cities. 
+
+
 
 lines (230-345 of other document)
 
