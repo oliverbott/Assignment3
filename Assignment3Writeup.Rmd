@@ -108,6 +108,34 @@ For closed innovation we use city-level patent data, taken from the Organization
 
 On the type of analysis and question, this study plans to use an ordinary least squares (OLS) model by using `plot` and possibly `rcorr( , type="pearson")` to examine the relationship between patent and open data in a given network cluster. If we happen to find a relationship, this would presumably demonstrate that open data shows the same innovation as patent data, but the 'throughput' of innovation rather than the 'output'. Open data having a relationship to patent data would presumably show innovation as a throughput, since it is measured by people finding those contributing in open data as innovators (followers on github), rather than looking at the specific innovation at completion (patents). One limitation we are facing is that the patent data will not be up to date compared to the network data. Still we believe that a general comparison is possible and could lead to valid results.
 
+# Data
+
+How our model is built up.
+
+```{r, echo=TRUE, results='asis'}
+
+# Create different models for stargazer regression output
+library(stargazer)
+
+P1 <- lm(Patents ~ nofollowing, data = dataset)
+P2 <- lm(Patents ~ nofollowing + medfollowing, data = dataset)
+P3 <- lm(Patents ~ nofollowing + medfollowing + hifollowing, data = dataset)
+P4 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP, data = dataset)
+P5 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population, data = dataset)
+P6 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace, data = dataset)
+P7 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace + Employment, data = dataset)
+P8 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace + Employment + Pollution, data = dataset)
+
+labels <- c('(Intercept)', 'GDP', 'Population', 'Greenspace in m² per capita', 'Employment as share of national value', 'Pollution', 'No Following', '1-25 Following', 'Over 25 Following')
+
+stargazer::stargazer(P1, P2, P3, P4, P5, P6, P7, P8, covariate.labels = labels,
+  title = 'Regression Estimates of Patent Activity',
+  digits = 2, type ='latex', header=FALSE)
+```
+
+Some interpretation.
+
+
 [^OECD]: Online accessible on http://stats.oecd.org.
 [^GIT]: Online accessilbe on https://github.com/.
 
