@@ -122,6 +122,9 @@ On the type of analysis and question, this study plans to use an ordinary least 
 
 
 # install.packages("car")
+
+
+```{r, echo=TRUE, results='asis'}
 require("car")
 
 plot(dataset$Patents,dataset$Followers)
@@ -129,6 +132,8 @@ plot(dataset[,3,7])
 
 
 car::scatterplotMatrix(dataset[,3:7])
+```
+
 
 
 
