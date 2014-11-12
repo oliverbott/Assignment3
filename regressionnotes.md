@@ -66,3 +66,19 @@ stargazer::stargazer(P1, P2, P3, covariate.labels = labels,
  # title = 'Regression Estimates of Patent Activity',
  # digits = 2, type ='html')
 ```
+
+
+```{r}
+{r, echo=TRUE, results='asis'}
+
+P1 <- lm(Patents ~ nofollowing, data = dataset)
+P2 <- lm(Patents ~ nofollowing + medfollowing, data = dataset)
+P3 <- lm(Patents ~ nofollowing + medfollowing + hifollowing, data = dataset)
+P4 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP, data = dataset)
+P5 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population, data = dataset)
+P6 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace, data = dataset)
+P7 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace + Employment, data = dataset)
+P8 <- lm(Patents ~ nofollowing + medfollowing + hifollowing + GDP + Population + Greenspace + Employment + Pollution, data = dataset)
+
+labels <- c('(Intercept)', 'GDP', 'Population', 'Greenspace', 'Employment', 'Pollution', 'nofollowing', 'medfollowing', 'hifollowing')
+```
