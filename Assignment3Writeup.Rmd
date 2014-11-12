@@ -1,7 +1,7 @@
 ---
 title: 'Open vs. closed innovation: using online network data to measure innovation'
 author: "Benjamin Snow and Oliver Bott"
-date: "11 November 2014"
+date: "14 November 2014"
 output:
   pdf_document:
     fig_caption: yes
@@ -30,18 +30,30 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 
 This research project examines the potential preferability of using collaborative online network data on the city-level as an innovation indicator. By doing so, this work critically assesses current innovation indicators in the hope of offering new alternatives for measuring and understanding innovation. Since various scholars, called for the continuous improvement of innovation measurement [see for example @freeman2009], this work seeks to go beyond the widespread use of patent data to contribute to the refinement of innovation indicators, and the field as a whole.
 
+For context, the stated research question is:  *To what extent can open innovation network data add to the measurement of innovation performance?*
+
+For the full examination of the previous literature on the subject and reasoning for the purpose and motives and plan for this study, please see ___.  This contribution focuses specifically on outlining the data gathering, data cleaning, and data merging process. It will also contain an explanation for the construction of early descriptive and inferential statistical models.
+
 # Data Gathering
 
 To examine open network data against patent data, this study will relies on two data sets and uses the statistical tool R [@CiteR] for the data analysis. 
 
-The first data set is obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. GitHub is a web-based hosting service used for collaborative research. Its use of source code management makes it a commonly used software development collaboration tool. Since most of the repositories are openly accessible one can use API tools to track the popularity of repositories, measured here by the repository user counts. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow us to compile data on the user counts and locations associated with different repositories.
+The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT].  The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow us to compile data on the user counts and locations associated with different repositories.
+
+lines (230-345 of other document)
+
+
 
 For closed innovation we use city-level patent data, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent Cooperation Treaty (PCT) patent data are used to track internationally patented inventions. For our sample, we took patent data of 133 cities from various OECD countries. As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use data on GDP per capita, pollution levels as a proxy for industrial development, greenspace as a proxy for the recreational value, employment data (as share of national employment) as a proxy for the relative national importance of the city. These other variables are inclued in the analysis as they could prove significant in explaining differences in innovation.
 
 
 # Justification
 
+A large aspect of data gathering and analysis is determining and clearly explaining reasoning behind the independent variables chosen in constructing a model.  For the purpose of this study, elements chosen to include in the model focused on the general economic health of the cities chosen (GDP), the industrialization level of the city (Pollution), the amount of publically usable parkland (Greenspace), 
+
 **Cities**
+
+
 
 Why are we using the cities we are, why did we exclude Einhoven etc.
 
@@ -67,7 +79,6 @@ dataset <- read.csv(text = x)
 dataset$X <- NULL
 
 ```
-
 
 
 Due to the exploratory nature of the study, it is important to be aware of the limitation before examining results, to put them in their proper context, and to keep in mind possible more approximate ways in the future.
@@ -107,6 +118,20 @@ For closed innovation we use city-level patent data, taken from the Organization
 **Statistical Model**
 
 On the type of analysis and question, this study plans to use an ordinary least squares (OLS) model by using `plot` and possibly `rcorr( , type="pearson")` to examine the relationship between patent and open data in a given network cluster. If we happen to find a relationship, this would presumably demonstrate that open data shows the same innovation as patent data, but the 'throughput' of innovation rather than the 'output'. Open data having a relationship to patent data would presumably show innovation as a throughput, since it is measured by people finding those contributing in open data as innovators (followers on github), rather than looking at the specific innovation at completion (patents). One limitation we are facing is that the patent data will not be up to date compared to the network data. Still we believe that a general comparison is possible and could lead to valid results.
+
+
+
+# install.packages("car")
+require("car")
+
+plot(dataset$Patents,dataset$Followers)
+plot(dataset[,3,7])
+
+
+car::scatterplotMatrix(dataset[,3:7])
+
+
+
 
 # Data
 
