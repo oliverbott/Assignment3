@@ -28,47 +28,20 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 
 # Background
 
-This research project examines the potential preferability of using collaborative online network data on the city-level as an innovation indicator. By doing so, this work critically assesses current innovation indicators in the hope of offering new alternatives for measuring and understanding innovation. Since various scholars, called for the continuous improvement of innovation measurement [see for example @freeman2009], this work seeks to go beyond the widespread use of patent data to contribute to the refinement of innovation indicators, and the field as a whole.
+This research project examines the potential preferability of using collaborative online network data on the city-level as an innovation indicator. By doing so, this work critically assesses current innovation indicators, namely patent data, in the hope of offering new alternatives for measuring and understanding innovation. The stated research question is:  *To what extent can open innovation network data add to the measurement of innovation performance?*
 
-For context, the stated research question is:  *To what extent can open innovation network data add to the measurement of innovation performance?*
-
-For the full examination of the previous literature on the subject and reasoning for the purpose and motives and plan for this study, please see ___.  This contribution focuses specifically on outlining the data gathering, data cleaning, and data merging process. It will also contain an explanation for the construction of early descriptive and inferential statistical models.
+For the full examination of the previous literature on the subject and reasoning for the purpose, motives, and plan for this study, please see (repository link).  This contribution focuses specifically on outlining the data gathering, data cleaning, and data merging process. It will also examine the constructed dataset using basic descriptive statistics, as well as run preliminary inferential statistical models, offering explanation and context throughout the process.
 
 # Data Gathering
 
-To examine open network data against patent data, this study will relies on two data sets and uses the statistical tool R [@CiteR] for the data analysis. 
+To examine open network data against patent data, this study will relies on two data key sources and uses the statistical tool R [@CiteR] for the data analysis. 
 
-The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow for compiling data on the user counts and locations associated with different repositories.  For closed innovation we use city-level patent data, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent Cooperation Treaty (PCT) patent data are used to track internationally patented inventions. Patent data and and GitHub follower data was taken for _ cities, which were matched for direct comparison.  
+The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow for compiling data on the follower counts and locations associated with different users and reponsitories.  For closed innovation city-level patent registration data is used, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent data and and GitHub follower data was taken for 48 cities, which were matched for direct comparison.  
 
+As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. The OECD data will be in a format that allows us to locate patent activity to individual cities. 
 
- As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. The OECD data will be in a format that allows us to locate patent activity to individual cities. 
-
-
-
-lines (230-345 of other document)
-
-
-
-For closed innovation we use city-level patent data, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent Cooperation Treaty (PCT) patent data are used to track internationally patented inventions. For our sample, we took patent data of 133 cities from various OECD countries. As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use data on GDP per capita, pollution levels as a proxy for industrial development, greenspace as a proxy for the recreational value, employment data (as share of national employment) as a proxy for the relative national importance of the city. These other variables are inclued in the analysis as they could prove significant in explaining differences in innovation.
-
-
-# Justification
-
-A large aspect of data gathering and analysis is determining and clearly explaining reasoning behind the independent variables chosen in constructing a model.  For the purpose of this study, elements chosen to include in the model focused on the general economic health of the cities chosen (GDP), the industrialization level of the city (Pollution), the amount of publically usable parkland (Greenspace), 
-
-**Cities**
-
-
-
-Why are we using the cities we are, why did we exclude Einhoven etc.
-
-**Pollution**
-
-Pollution data was obtained as a broad proxy for industrialization
-
-**GDP**
-
-Greenspace, employment as share of national employment, pop, 
+#(come back to this paragraph)
+From the same OECD database: GDP per capita, pollution levels, greenspace, and employment (as share of national employment) are taken for the relevant cities which github and patent data are obtained for. These other variables are inclued in the analysis as they could prove significant in explaining differences in innovation.
 
 ```{r, include=FALSE}
 # Load Dataset.csv from repository
@@ -98,25 +71,9 @@ dataset <- dataset[-c(39, 45, 46, 59, 62, 73, 80, 114, 118, 119), ]
 
 ```
 
+# Data Sources
 
-Due to the exploratory nature of the study, it is important to be aware of the limitation before examining results, to put them in their proper context, and to keep in mind possible more approximate ways in the future.
-
-# Limitations
-
-For this analysis, there have been several issues with identifying parts of cities (Regions of cities).  Additionally, pulling API data for cities with two word names 'New York', '
-
-The constraints of the data used in this study are numerous, but fall largely within three main categories:
-
-Time:
-
-Too Rough a Proxy:
-
-**Defining Innovation**
-
-**Measuring Innovation**
-
-**Limitations of Patent Data**
-
+See below for the year and source of the various variables used in the study. For a more in depth discussion of each variable, its year, its limitations and the reasoning and justification for selection to this study as an appropriate explanatory variable or proxy, please see ( Appendix ).
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
@@ -132,26 +89,9 @@ limtab <- data.frame(Variables, Year, Source)
 knitr::kable(limtab)
 ```
 
+# Prelimianary Descriptive Statistical Analysis
 
-
-# Methodology
-
-To examine open network data against patent data, this study will rely largely on two data sets and use the statistical tool R [@CiteR] for the data analysis.
-
-**API network data**
-
-The first data set is obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. GitHub is a web-based hosting service used for collaborative research. Its use of source code management makes it a commonly used software development collaboration tool. Since most of the repositories are openly accessible one can use API tools to track the popularity of repositories, measured here by the repository user counts. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow us to compile data on the user counts and locations associated with different repositories.
-
-For the analysis, first create location vectors for different cities with the `locations` code. Since many GitHub users can be located, we will identify different open innovation clusters, for example Berlin, New York and San Francisco. In addition, we use the `vector()` code to get information on user counts, focusing on repositories with more than 20 or so followers. By combining locations and user counts data by using `data.frame()`, we will be able to construct data sets for different location clusters and user count numbers, where users of highly relevant repositories are located.
-
-**Closed innovation OECD patent data**
-
-For closed innovation we use city-level patent data, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent Cooperation Treaty (PCT) patent data are used to track internationally patented inventions. For our preliminary sample, we took patent data of 20 cities overall, ranging from six different countries, including their country level patent data, for general comparison over the time period 2000 until 2012. As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. The OECD data will be in a format that allows us to locate patent activity to individual cities. 
-
-
-**Statistical Model**
-
-On the type of analysis and question, this study plans to use an ordinary least squares (OLS) model by using `plot` and possibly `rcorr( , type="pearson")` to examine the relationship between patent and open data in a given network cluster. If we happen to find a relationship, this would presumably demonstrate that open data shows the same innovation as patent data, but the 'throughput' of innovation rather than the 'output'. Open data having a relationship to patent data would presumably show innovation as a throughput, since it is measured by people finding those contributing in open data as innovators (followers on github), rather than looking at the specific innovation at completion (patents). One limitation we are facing is that the patent data will not be up to date compared to the network data. Still we believe that a general comparison is possible and could lead to valid results.
+A first examination of the distribution of each variable show distributions which reflect a .....  An examination of the distribution of both the patent applications and github users in each city are taken to examine if a similar distribution can be seen in cities when normalizing for population size.  A similar distribution would indicate ... (Olli, question here, if its examining when it is only no following, this isnt giving us total user numbers, just user numbers of those who dont have any following, right?)
 
 
 ```{r, echo=FALSE, results='asis'}
@@ -172,6 +112,8 @@ On the type of analysis and question, this study plans to use an ordinary least 
 
 ```
 
+Next, the @R-car, or companion to applied regression is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate.  Taking into account the clumped distribution of many variables, taking the log regression of several variables when regressing is attempted, to see if this brings about a more normal distribution.
+
 
 ```{r, echo=FALSE, results='asis'}
 require("car")
@@ -183,12 +125,14 @@ require("car")
 car::scatterplotMatrix(dataset[,2:10])
 ```
 
+# Inferential Statistics
 
+This study plans to use an ordinary least squares (OLS) model to examine the relationship between patent and highly followed open data sources. The high level of significance between these two variables, rather than demonstrating that one is acting on the other, show that some other 'spur of innovation' is acting on both, but does endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data.  This found relationships offers a glimps into the 'throughput' of innovation rather than the 'output' which patent data reflects.  However, this is exceptionally early analysis and will need to be examined further.
 
+Now that a relationship between patent and follower data has been shown, further inferential statistical analysis attempts to find the common predictor or cause of innovation in both patent and open data is necessary.  This is done by running identical Ordinary Least Squares regressions, using the the log of both patent and highly followed github users as the dependant variables, and the log of each of the previously mentioned independant variables (GDP, Population, Greenspace, Employment, and Pollution), to examine if any of these variables prove significantly (and presumably, similarly) correlated to our dependant variables. 
 
-# Data
+This process has allowed us first directly compare our previously established (patent) and newly hypothesized (open - github) measures of innovation. After comparing directly, attempting to find how they differently reflect innovation, as well as attempting to find the common cause of innovation for both the innovation throughput which is open data, and the innovation output which is patent data, is necessary.
 
-How our model is built up.
 
 ```{r, echo=FALSE, results='asis'}
 
@@ -208,8 +152,6 @@ stargazer::stargazer(P1, P2, P3, P4, covariate.labels = labelsP,
 ```
 
 
-Some interpretation
-
 ```{r, echo=FALSE, results='asis'}
 
 # Create follower model for stargazer regression output
@@ -223,10 +165,6 @@ stargazer::stargazer(F1, F2, covariate.labels = labelsF,
   title = 'Regression Estimates of Follower Numbers',
   digits = 2, type ='latex', header=FALSE)
 ```
-
-
-Some interpretation.
-
 
 [^OECD]: Online accessible on http://stats.oecd.org.
 [^GIT]: Online accessilbe on https://github.com/.
