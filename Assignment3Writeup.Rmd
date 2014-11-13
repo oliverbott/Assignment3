@@ -28,20 +28,20 @@ repmis::LoadandCite(PackagesUsed, file = "Packages.bib", install = FALSE)
 
 # Background
 
-This research project examines the potential preferability of using collaborative online network data on the city-level as an innovation indicator. By doing so, this work critically assesses current innovation indicators, namely patent data, in the hope of offering new alternatives for measuring and understanding innovation. The stated research question is:  *To what extent can open innovation network data add to the measurement of innovation performance?*
+This research project examines the potential benefit of using open knowledge data in the form of collaborative online network data as an innovation indicator. By doing so, this work critically assesses current innovation indicators, namely patent data, in the hope of offering new alternatives for measuring and understanding innovation. The stated research question is:  *To what extent can open innovation network data add to the measurement of innovation performance?*
 
-For the full examination of the previous literature on the subject and reasoning for the purpose, motives, and plan for this study, please see (repository link).  This contribution focuses specifically on outlining the data gathering, data cleaning, and data merging process. It will also examine the constructed dataset using basic descriptive statistics, as well as run preliminary inferential statistical models, offering explanation and context throughout the process.
+For the full examination of the previous literature on the subject and reasoning for the purpose, motives, and plan for this study, please see the [Research Proposal](https://github.com/benjaminsnow/Collaborative-Research-Proposal-Assignment-Two-).  This contribution focuses specifically on outlining the data gathering, data cleaning, and merging process. It will also examine the constructed dataset using basic descriptive statistics, as well as run preliminary inferential statistical models, offering explanation and context throughout the process. Finally, steps to improve the analysis for the final version will be given.
 
 # Data Gathering
 
-To examine open network data against patent data, this study will relies on two data key sources and uses the statistical tool R [@CiteR] for the data analysis. 
+To examine open network data against patent data, this study relies on two data key sources and uses the statistical tool R [@CiteR] for the data analysis. 
 
-The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. The R [@CiteR] packages @R-httr, @R-dplyr and @R-rjson allow for compiling data on the follower counts and locations associated with different users and reponsitories.  For closed innovation city-level patent registration data is used, taken from the Organization for Economic Co-operation and Development[^OECD]. The R [@CiteR] package [@R-rsdmx] is necessary for obtaining the OECD dataset. Patent data and and GitHub follower data was taken for 48 cities, which were matched for direct comparison.  
+The first data set was obtained by using the Application Programming Interface (API) data for open networks. To examine open data innovation, data is obtained from the the git repository web-based hosting service GitHub[^GIT]. The R [@CiteR] packages httr @R-httr, dplyr @R-dplyr and rjson @R-rjson allow for compiling data on the follower counts and locations associated with different users and reponsitories.
 
-As we are interested in patent data, we work with data indicating the PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. The OECD data will be in a format that allows us to locate patent activity to individual cities. 
+As an indicator of closed innovation we use city-level patent registration data from the Organization for Economic Co-operation and Development[^OECD]. We use PCT patent applications per 10,000 inhabitants. From the same database, we also use GDP per capita data and environmental data, as other variables which could prove significant in explaining differences in innovation. From the same OECD database: GDP per capita, pollution levels, greenspace, and employment (as share of national employment) are taken for the relevant cities which github and patent data are obtained for. These other variables are inclued in the analysis as they could prove significant in explaining differences in innovation. The R [@CiteR] package rsdmx [@R-rsdmx] is necessary for obtaining the OECD dataset.
 
-#(come back to this paragraph)
-From the same OECD database: GDP per capita, pollution levels, greenspace, and employment (as share of national employment) are taken for the relevant cities which github and patent data are obtained for. These other variables are inclued in the analysis as they could prove significant in explaining differences in innovation.
+All data obtained via the GitHub API and OECD database can be linked to individual cities, allowing for an analysis on the regional level. The code used for gathering and cleaning the data can be accessed via this [link](https://github.com/oliverbott/Assignment3/blob/master/Data_Gathering.R).
+
 
 ```{r, include=FALSE}
 # Load Dataset.csv from repository
@@ -73,7 +73,7 @@ dataset <- dataset[-c(39, 45, 46, 59, 62, 73, 80, 114, 118, 119), ]
 
 # Data Sources
 
-See below for the year and source of the various variables used in the study. For a more in depth discussion of each variable, its year, its limitations and the reasoning and justification for selection to this study as an appropriate explanatory variable or proxy, please see ( Appendix ).
+Table 1 depicts the various variables used in the study. For a more in depth discussion of each variable, its year, its limitations and the reasoning and justification for selection to this study as an appropriate explanatory variable or proxy, please see ( Appendix ).
 
 ```{r, echo=FALSE, results='asis'}
 library(knitr)
@@ -112,7 +112,7 @@ A first examination of the distribution of each variable show distributions whic
 
 ```
 
-Next, the @R-car, or companion to applied regression is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate.  Taking into account the clumped distribution of many variables, taking the log regression of several variables when regressing is attempted, to see if this brings about a more normal distribution.
+Next, the car package @R-car is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate.  Taking into account the clumped distribution of many variables, taking the log regression of several variables when regressing is attempted, to see if this brings about a more normal distribution.
 
 
 ```{r, echo=FALSE, results='asis'}
