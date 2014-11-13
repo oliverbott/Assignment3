@@ -88,6 +88,24 @@ limtab <- data.frame(Variables, Year, Source)
 
 knitr::kable(limtab)
 ```
+#Data Selection
+
+Several potential explanatory variables are collected besides the patent and github data. These variables were selected as they were thought to potentially show cause for why innovation, be it open or closed, occurs in a certain city, but needed to be variables that would not be endogenous (is this the right word) to patent or github data. 
+
+**Greenspace**
+The Greenspace indicator specifically shows the (   ). It was deemed potentially relevant in that with a choice of city to innovate in (assuming some level of geographic labor flexibility) there might be a recreational value necessary for attracting talent.  Put another way, pretty cities could attract innovators.
+
+**Pollution**
+The Pollution indicator is taken both as a broad proxy for industrialization (leaving aside a discussion of to what degree pollution is from industry vs cars, etc), but also related to the Greenspace variable, that it seemed worth exploring whether a certain level of pollution discouraged talent attraction of innovators on the city level.
+
+**Employment**
+The Employment indicator is taken largely as an indication of that countries significance within its national context. Understanding whether a city would likely be viewed as the most prominent or significant, and whether this effects innovation, or whether innovation takes place in smaller provincial cities, is worther understanding.  Additionally, seeing if the type of innovation (open vs. closed) depends on the significance of the city.  An assumption which could be confirmed or disabused, for instance, is that closed innovation is more likely in prominant cities, whereas open innovation, which might require less physical presence, is more likely in less significant cities.
+
+**GDP**
+A GDP indicator explores whether the size of the economy, or wealth generally, encourages innovation on the city-level, and if it is indicator of one type of innovation over another.
+
+**Population**
+A Population variable explores whether there is a necessary city size threshold which corresponds to innovation, and also was taken for controlling for across cities, to find patent data or github data per a number of people in a city.  Without this control, github followers and patent data would likely simply correspond to the population of the city, which would be less instructive
 
 # Prelimianary Descriptive Statistical Analysis
 
