@@ -16,7 +16,7 @@ bibliography:
 
 ```{r echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
 # Set working directory. Change as needed
-setwd('C:/Users/a6p/Desktop/Uni 2014/E1161 - Collaborative Research/GitHub Clone/Assignment3/Assignment3/')
+setwd('C:/Users/a6p/Desktop/Uni 2014/E1161 - Collaborative Research/GitHub Clone/Assignment_3/Assignment3/')
 
 # Load packages and create BibTeX file
 # Note: must have repmis, rsdmx, httr, dplyr and rjson packages installed
