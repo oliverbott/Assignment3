@@ -29,7 +29,7 @@ The project proposal can be found in Assignment.Rmd.
 - License is a basic MIT license for the project.
 - Main.bib is the main bibliographic file which is dynamically linked to Assignment3.Rmd.
 - Packages.bib is a bibliographic file dynamically linked to Proposal.Rmd with citations for R and R packages.
-- README.MD is the file for the file currently being read, which offers introduction and context to the project, as interestingly as possible.
+- README.md is the file for the file currently being read, which offers introduction and context to the project, as interestingly as possible.
 
 
 #### Contact
