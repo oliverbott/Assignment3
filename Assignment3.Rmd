@@ -74,7 +74,7 @@ dataset <- dataset[-c(39, 45, 46, 59, 62, 73, 80, 114, 118, 119), ]
 
 # Data Sources
 
-Table 1 depicts the variables used in the study. We use data on the city-level for a total of 120 cities based in OECD countries. As can be seen, we base our analysis on cross-sectional data with varying time frames. All of the OECD data is from 2008 except for the pollution data, which stems from 2005. The GitHub API data is taken from 2014. This inconsistency presents a limitation to the interpretation of our findings. **Limitations: GitHub only software, patent all innovation**
+Table 1 depicts the variables used in the study. We use data on the city-level for a total of 120 cities based in OECD countries. As can be seen, we base our analysis on cross-sectional data with varying time frames. All of the OECD data is from 2008 except for the pollution data, which stems from 2005. The GitHub API data is taken from 2014. This inconsistency presents a limitation to the interpretation of our findings.
 
 
 ```{r, echo=FALSE, results='asis'}
@@ -90,7 +90,7 @@ limtab <- data.frame(Variables, Year, Source)
 
 knitr::kable(limtab)
 ```
-There are obvious limitations to the data used in this study. First, the time discrepency between different aspects of the data used, which range from 2005 to 2014 and can be seen in the table above, reflect an obvious data availablity constraint. Secondly, while a large number of cities ranging over a several countries are included, several prominent innovation hubs, including San Fransisco and New York, are excluded due to data availability, but will likely be included in the final study. Lastly, several variables used, with pollution being the most obvious example, while numerically accurate, act as at best a rough proxy for the meaning (industrialization) being attributed to them. Any found significance will need to take this into account when offering recommendations.
+There are obvious limitations to the data used in this study. First, the time discrepency between different aspects of the data used, which range from 2005 to 2014 and can be seen in the table above, reflect an obvious data comparability constraint. Secondly, while a large number of cities ranging over a several countries are included, several prominent innovation hubs, including San Fransisco and New York, are excluded due to data availability, but will likely be included in the final study. Third, several variables used, with pollution being the most obvious example, while numerically accurate, act as at best a rough proxy for the meaning (industrialization) being attributed to them. Any found significance will need to take this into account when offering recommendations. Last, and perhaps most significantly, when comparing the two measures of innovation it should be noted that Patent data reflects innovation across all types of sectors, whereas Github data only reflects innovation within the software technology domain.
 
 #Data Selection
 
@@ -168,7 +168,10 @@ This study plans to use an ordinary least squares (OLS) model to examine the rel
 
 $$   logP_{i} = {\beta}_0 +{\beta}_1 logF_{i} + {\beta}_2 logGDP_{i} + {\beta}_3 logPop_{i} + {\beta}_4 logG_{i} + {\beta}_4 logE_{i} + {\beta}_4 logPol_{i} + {\epsilon}_{i}$$
 
-*P* is the patent intensity expected in a given city *i*. While in our setting it is not possible to show causal effects of the relationship between the variables, demonstrating that one is acting on the other is already an important finding in itself. The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data.  This found relationships offers a glimps into the 'throughput' of innovation rather than the 'output' which patent data reflects.  However, this will need to be examined further in the final paper. 
+*P* is the patent intensity expected in a given city *i*. While in our setting it is not possible to show causal effects of the relationship between the variables, demonstrating that one is acting on the other is already an important finding. 
+
+As can be observed,
+The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data.  This found relationships offers a glimps into the 'throughput' of innovation rather than the 'output' which patent data reflects.  However, this will need to be examined further in the final paper. 
 
 Now that a relationship between patent and follower data has been shown, further inferential statistical analysis attempts to find the common predictor or cause of innovation in both patent and open data is necessary.  This is done by running identical OLS regressions, using the the log of both patent and highly followed GitHub users as the dependant variables, and the log of each of the previously mentioned independant variables (GDP, Population, Greenspace, Employment, and Pollution), to examine if any of these variables prove significantly (and presumably, similarly) correlated to our dependant variables. 
 
