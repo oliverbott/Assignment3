@@ -83,11 +83,20 @@ As can be seen in the Table below, we base our analysis on cross-sectional data 
 library(knitr)
 
 # Create table with info on variables
-Variables <- c('Patents', 'GDP', 'Population', 'Greenspace', 'Employment', 'Pollution', 'No Following', '1-24 Following', '>25 
+Variables <- c('Patents', 'GDP', 'Population', 'Greenspace', 
+               'Employment', 'Pollution', 'No Following', '1-24 Following', '>25 
 Following')
-Year <- c('2008', '2008','2008','2008','2008','2005', '2014', '2014', '2014')
-Source <- c('OECD', 'OECD', 'OECD', 'OECD', 'OECD', 'OECD', 'GitHub API', 'GitHub API','GitHub API')
-Explanation <- c('PCT patents per 10,000 population', 'GDP per capita', 'Urban population', 'Green area per capita in square metres', 'Employment of metropolitan area as % of national value', 'Annual average of pop exposure to air pollution PM2,5 in µg/m³', 'GitHub users per 10,000 population', 'GitHub users per 10,000 population', 'GitHub users per 10,000 population')
+Year <- c('2008', '2008','2008','2008','2008',
+          '2005', '2014', '2014', '2014')
+Source <- c('OECD', 'OECD', 'OECD', 'OECD', 'OECD', 
+            'OECD', 'GitHub', 'GitHub','GitHub')
+Explanation <- c('PCT patents per 10,000 population', 'GDP per capita', 
+                 'Urban population', 'Green area per capita in square metres', 
+                 'Employment of metropolitan area as % of national value', 
+                 'Annual average of pop exposure to air pollution PM2,5 in µg/m³', 
+                 'GitHub users per 10,000 population with x followers', 
+                 'GitHub users per 10,000 population with x followers', 
+                 'GitHub users per 10,000 population with x followers')
 
 # Combine
 limtab <- data.frame(Variables, Explanation, Year, Source)
@@ -114,28 +123,26 @@ Several potential explanatory variables are collected besides the patent and Git
 
 # Descriptive Statistics
 
-The summary statistics of the variables show wide ranging distributions. Since the data cleaning eliminated all values equal to or lower than zero, a log transformation seems to be a strategy that could strengthen our analysis.
+The summary statistics in Table 2 show wide ranging distributions. Since the data cleaning eliminated all values equal to or lower than zero, a log transformation seems to be a strategy that could strengthen our analysis. The *car* package [@R-car] is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate. The distribution of many variables are highly skewed (see Figure 1). All of the GitHub based variables 'nofollowing', 'medfollowing', and 'hifollowing' have significant right skews, as do nearly all of the observed variables excluding Pollution, GDP, and Patents, which come closer to a normal distribution. To normalize for the distributions, the log of the variables is deemed necessary to increase the explanatory power of our inferential statistics.  
 
 
 ```{r, echo=FALSE, results='asis'}
 # Descriptive statistics
 library(stargazer)
 
-# formerly stargazer(dataset[3:11,],
 stargazer(dataset[,], summary=TRUE,
   title = 'Summary statistics',
   digits = 2, type ='latex', header=FALSE)
 
 ```
 
-The *car* package [@R-car] is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate. The distribution of many variables are highly skewed (see Figure 1). All of the github based variables 'nofollowing', 'medfollowing', and 'hifollowing' had significant left skews, as did nearly all of the observed variables excluding Pollution, GDP, and Patents, which were more normally distributed. To normalize for the left skewed distribution, the log of the variables is deemed necessary to normalize for this.  
-
 
 ```{r, echo=FALSE, results='asis'}
 # Create scatterplot matrix of variables
 require("car")
 
-car::scatterplotMatrix(dataset[,2:10], main="Scatterplot matrix")
+car::scatterplotMatrix(dataset[,2:10], 
+                       main="Scatterplot matrix")
 
 ```
 
@@ -143,7 +150,8 @@ The residual plot between patents and users with high follower numbers (see Figu
 
 ```{r, echo=FALSE, results='asis'}
 # Create residual plot for log(Patents)
-patfol.lm = lm(log(Patents) ~ log(hifollowing), data = dataset)
+patfol.lm = lm(log(Patents) ~ log(hifollowing)
+               , data = dataset)
 patfol.res = resid(patfol.lm)
 
 plot(dataset$hifollowing, patfol.res,
@@ -159,51 +167,54 @@ This study plans to use an ordinary least squares (OLS) model to examine the rel
 
 $$   logP_{i} = {\beta}_0 +{\beta}_1 logF_{i} + {\beta}_2 logGDP_{i} + {\beta}_3 logPop_{i} + {\beta}_4 logG_{i} + {\beta}_5 logE_{i} + {\beta}_6 logPol_{i} + {\epsilon}_{i}$$
 
-where *P* is the patent intensity expected in a given city *i*. As seen below, a significant relationship between patent data and github data is observed, though most significantly between patent data and those with hi numbers of followers on github. Additionally, employment and pollution are significantly correlated with patent data.
+Here *P* is the patent intensity expected in a given city *i*. As seen in the regression output Table 3, a positive relationship between patent data and github data is observed (at a significance level of p<0.01), though most significantly between patent data and those with high numbers of followers on GitHub. In the full model specification, a 1 percent increase in GitHub users with more than 25 followers (per 10,000 population) correlates with a 1 percent increase in PCT patents (per 10,000 population). Additionally, Employment seems also to be positively correlated with patents, supporting our hypothesis that the significance of a city in a national context is strongly related to patent activities. Pollution is negatively correlated with patent data at a high significance level, while the variables GDP, Population and Greenspace do not seem to have a significant effect on patent activity.
+
 
 ```{r, echo=FALSE, results='asis'}
-
 # Create patent models for stargazer regression output
 
 P1 <- lm(log(Patents) ~ log(nofollowing), data = dataset)
 P2 <- lm(log(Patents) ~ log(medfollowing), data = dataset)
 P3 <- lm(log(Patents) ~ log(hifollowing), data = dataset)
-P4 <- lm(log(Patents) ~ log(hifollowing) + log(GDP) + log(Population) + log(Greenspace) + log(Employment) + log(Pollution), data = dataset)
+P4 <- lm(log(Patents) ~ log(hifollowing) + log(GDP) + log(Population) + 
+           log(Greenspace) + log(Employment) + log(Pollution), data = dataset)
 
-labelsP <- c('(Intercept)', 'No Following', '1-24 Following', '>25 Following', 'GDP', 'Population', 'Greenspace', 'Employment', 'Pollution')
+labelsP <- c('(Intercept)', 'No Following', '1-24 Following', '>25 Following', 
+             'GDP', 'Population', 'Greenspace', 'Employment', 'Pollution')
 
 stargazer::stargazer(P1, P2, P3, P4, covariate.labels = labelsP,
   title = 'Regression Estimates of Patent Activity',
   digits = 2, type ='latex', header=FALSE, single.row=TRUE)
 ```
 
-As a relationship between patent and follower data is observed, further inferential statistical analysis attempts to find the common predictor or cause of innovation in both patent and open data is necessary.  This is done by running an additional OLS regression, using the the log of highly followed GitHub users as the dependant variable, and the log of each of the previously mentioned independant variables (GDP, Population, Greenspace, Employment, and Pollution) as well as Patents, to examine if any of these variables prove significantly (and presumably, similarly) correlated. 
-
-The second regression model is expressed below using similar notation and logic as stated above.
+As a relationship between patent and follower data is observed, further inferential statistical analysis attempts to find the common predictor or cause of innovation in both patent and open data. The second regression model hence includes our open innovation indicator now as the dependent variable and is expressed below using similar notation and logic as stated above:
 
 $$   logF_{l} = {\beta}_0 +{\beta}_1 logP_{l} + {\beta}_2 logGDP_{l} + {\beta}_3 logPop_{l} + {\beta}_4 logG_{l} + {\beta}_4 logE_{l} + {\beta}_4 logPol_{l} + {\epsilon}_{l}$$
 
-As can be seen Pollution and Employment both has a significant effect, though as the rather low adjusted R squared value indicates, a relatively small portion of the relationship between followers and the independant variables is explained in this model.
+As can be seen in Table 4, again Patents are strongly positively correlated with Follower numbers (at a significance level of p<0.01). Both Pollution and Employment are negatively correlated (at a significance level of p<0.05). The adjusted R squared value indicates that about 36% of the variation in follower numbers in our sample is explained through our model.
+
 
 ```{r, echo=FALSE, results='asis'}
 
 # Create follower model for stargazer regression output
 
 F1 <- lm(log(hifollowing) ~ log(Patents), data = dataset)
-F2 <- lm(log(hifollowing) ~ log(Patents) + log(GDP) + log(Population) + log(Greenspace) + log(Employment) + log(Pollution), data = dataset)
+F2 <- lm(log(hifollowing) ~ log(Patents) + log(GDP) + log(Population) + 
+           log(Greenspace) + log(Employment) + log(Pollution), data = dataset)
 
-labelsF <- c('(Intercept)', 'Patents', 'GDP', 'Population', 'Greenspace', 'Employment', 'Pollution')
+labelsF <- c('(Intercept)', 'Patents', 'GDP', 'Population', 
+             'Greenspace', 'Employment', 'Pollution')
 
 stargazer::stargazer(F1, F2, covariate.labels = labelsF,
   title = 'Regression Estimates of Follower Numbers',
   digits = 2, type ='latex', header=FALSE, single.row=TRUE)
 ```
 
-The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data.  This found relationships offers a glimps into the 'throughput' of innovation rather than the 'output' which patent data reflects.  While significant relationships are found, particularly in regard to Pollution and Employment, with innovation, obvious other unaccounted for variables also contribute which are not currently accounted for in the model. 
+The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data. These found relationships offer a glimps into the 'throughput' of open innovation (in the form of collaboration) rather than the 'output' which patent data reflects (in the form of commercialization of knowledge).  While significant relationships are found with innovation, other unaccounted for variables can be expected to contribute but are not currently accounted for in the model.
 
 # Outlook
 
-From this analysis it becomes apparent that the introduction of various dummy controls could help explain the spurious relationship between patent and network data. It would hence make sense to control for English speaking countries, as we would suspect the spread of GitHub to be greatest there. Also, we could introduce dummy controls for the overall economic development of the country, assuming that software development is clustered in these locations. In addition, including a map visualization with information on location of the cities in our sample could greatly improve our work.
+From this analysis it becomes apparent that the introduction of various dummy controls could help explain the spurious relationship between patent and network data. This could also help to find the more fundamental factors influencing innovation activity. Hence, to better answer our research question, it seems sensible to control for English speaking countries, as we would suspect the spread of GitHub to be greatest there. Also, we could introduce dummy controls for the overall economic development of the country, assuming that software development is clustered in these locations. In addition, including a map visualization with information on location of the cities in our sample could improve our work.
 
 [^OECD]: Online accessible via [http://stats.oecd.org](http://stats.oecd.org).
 [^GIT]: Online accessilbe via [https://github.com/](https://github.com/).
