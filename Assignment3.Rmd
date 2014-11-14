@@ -84,14 +84,14 @@ library(knitr)
 
 # Create table with info on variables
 Variables <- c('Patents', 'GDP', 'Population', 'Greenspace', 
-               'Employment', 'Pollution', 'No Following', '1-24 Following', '>25 
-Following')
+               'Employment', 'Pollution', 'No Following', 
+               '1-24 Following', '>25 Following')
 Year <- c('2008', '2008','2008','2008','2008',
           '2005', '2014', '2014', '2014')
 Source <- c('OECD', 'OECD', 'OECD', 'OECD', 'OECD', 
             'OECD', 'GitHub', 'GitHub','GitHub')
 Explanation <- c('PCT patents per 10,000 population', 'GDP per capita', 
-                 'Urban population', 'Green area per capita in square metres', 
+                 'Total urban population', 'Green area per capita in square metres', 
                  'Employment of metropolitan area as % of national value', 
                  'Annual average of pop exposure to air pollution PM2,5 in µg/m³', 
                  'GitHub users per 10,000 population with x followers', 
@@ -210,13 +210,13 @@ stargazer::stargazer(F1, F2, covariate.labels = labelsF,
   digits = 2, type ='latex', header=FALSE, single.row=TRUE)
 ```
 
-The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data. These found relationships offer a glimps into the 'throughput' of open innovation (in the form of collaboration) rather than the 'output' which patent data reflects (in the form of commercialization of knowledge).  While significant relationships are found with innovation, other unaccounted for variables can be expected to contribute but are not currently accounted for in the model.
+The findings endorse the implicit hypothesis of the study that open data sources do seem to show innovation in a similar but perhaps distinct manner to patent data and could hence enrich the measurement of innovation. These found relationships offer a glimps into the 'throughput' of open innovation (in the form of collaboration) rather than the 'output' which patent data reflects (in the form of commercialization of knowledge).  While significant relationships are found with innovation, other unaccounted for variables can be expected to contribute but are not currently accounted for in the model.
 
 # Outlook
 
 From this analysis it becomes apparent that the introduction of various dummy controls could help explain the spurious relationship between patent and network data. This could also help to find the more fundamental factors influencing innovation activity. Hence, to better answer our research question, it seems sensible to control for English speaking countries, as we would suspect the spread of GitHub to be greatest there. Also, we could introduce dummy controls for the overall economic development of the country, assuming that software development is clustered in these locations. In addition, including a map visualization with information on location of the cities in our sample could improve our work.
 
-[^OECD]: Online accessible via [http://stats.oecd.org](http://stats.oecd.org).
+[^OECD]: Online accessible via [http://stats.oecd.org/](http://stats.oecd.org).
 [^GIT]: Online accessilbe via [https://github.com/](https://github.com/).
 
 # References
