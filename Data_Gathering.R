@@ -79,7 +79,7 @@ city_emp$attrs.df <- NULL
 
 colnames(city_emp) <- c("METRO_ID" , "Year" , "Employment") # Rename columns
 
-# Merge all 3 OECD citydata sets
+# Merge all OECD citydata sets
 oecd_pat_gdp <- merge(city_pat , city_gdp , by=c("METRO_ID" , "Year"))
 oecd_pat_gdp_pop <- merge(oecd_pat_gdp , city_pop , by=c("METRO_ID" , "Year"))
 oecd_pat_gdp_pop_green <- merge(oecd_pat_gdp_pop , city_green , by=c("METRO_ID" , "Year"))
