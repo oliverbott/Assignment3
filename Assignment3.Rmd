@@ -135,7 +135,7 @@ stargazer(dataset[,], summary=TRUE,
 
 ```
 
-The *car* package [@R-car] is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which log transformation and regression model would be most appropriate.  The distribution of many variables are highly skewed (see Figure 1). This finding supports our attempt to undertake a log transformation of the variables used.
+The *car* package [@R-car] is used to examine the relationship, distribution, and normality of all variables included in the model, to understand which regression model would be most appropriate. The distribution of many variables are highly skewed (see Figure 1). All of the github based variables 'nofollowing', 'medfollowing', and 'hifollowing' had significant left skews, as did nearly all of the observed variables excluding Pollution, GDP, and Patents, which were more normally distributed. To normalize for the left skewed distribution, the log of the variables is deemed necessary to normalize for this.  
 
 
 ```{r, echo=FALSE, results='asis'}
