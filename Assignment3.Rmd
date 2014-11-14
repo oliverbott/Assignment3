@@ -90,6 +90,7 @@ limtab <- data.frame(Variables, Year, Source)
 
 knitr::kable(limtab)
 ```
+There are obvious limitations to the data used in this study. First, the time discrepency between different aspects of the data used, which range from 2005 to 2014 and can be seen in the table above, reflect an obvious data availablity constraint. Secondly, while a large number of cities ranging over a several countries are included, several prominent innovation hubs, including San Fransisco and New York, are excluded due to data availability, but will likely be included in the final study. Lastly, several variables used, with pollution being the most obvious example, while numerically accurate, act as at best a rough proxy for the meaning (industrialization) being attributed to them. Any found significance will need to take this into account when offering recommendations.
 
 #Data Selection
 
