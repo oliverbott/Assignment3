@@ -3,7 +3,7 @@
 
 ### Background
 
-This is the repository for the 'Collaborative Social Science Data Analysis' course taught by <a href="@christophergandrud/">https://github.com/christophergandrud</a> at the Hertie School of Governance.  This is the repository for Assignment 3, which focuses on the data gathering, cleaning, and early analyses for a final research project.  
+This is the repository for the 'Collaborative Social Science Data Analysis' course taught by [@christophergandrud](https://github.com/christophergandrud) at the Hertie School of Governance.  This is the repository for Assignment 3, which focuses on the data gathering, cleaning, and early analyses for a final research project.  
 
 The assignment calls for: gathering web-based data from at least two sources, as well as cleaning and merging said data.  Additionally basic descriptive and inferential statistics should be performed towards the motive of answering the previous assignments research question. Lastly a description of results with accompanying tables and figures should be included.
 
